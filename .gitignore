@@ -1,0 +1,30 @@
+# Sensitive / local-only
+*.local
+*.secret
+.env
+secrets/
+
+# Large files
+*.jpg
+*.jpeg
+*.png
+*.gif
+*.mp4
+*.webm
+*.ico
+*.svg
+backgrounds/
+
+# State / cache
+*.log
+*.pid
+*.lock
+*.swp
+*.swo
+*~
+.cache/
+.local/state/
+
+# OS
+.DS_Store
+Thumbs.db
