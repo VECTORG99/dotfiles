@@ -133,18 +133,18 @@
     {
       "type": "command",
       "key": "󱦟 OS Age",
-      "keyColor": "magenta",
+      "keyColor": "yellow",
       "text": "echo $(( ($(date +%s) - $(stat -c %W /)) / 86400 )) days"
     },
     {
       "type": "uptime",
       "key": "󱫐 Uptime",
-      "keyColor": "magenta"
+      "keyColor": "yellow"
     },
     {
       "type": "command",
       "key": " Update",
-      "keyColor": "magenta",
+      "keyColor": "yellow",
       "text": "updated=$(omarchy-version-pkgs); echo \"$updated\""
     },
     {
