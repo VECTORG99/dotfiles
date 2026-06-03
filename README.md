@@ -2,6 +2,8 @@
 
 My personal Omarchy on CachyOS configuration with Frutiger Aero theming.
 
+Based on [Omarchy on CachyOS](https://github.com/roboff/omarchy-on-cachyos) by [Mr. Roboff](https://github.com/roboff).
+
 ## Overview
 
 - **OS:** CachyOS (Arch Linux)
