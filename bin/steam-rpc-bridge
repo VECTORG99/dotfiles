@@ -1,0 +1,178 @@
+#!/usr/bin/env python3
+import os
+import socket
+import struct
+import json
+import time
+import subprocess
+import sys
+
+GAMES = {
+    "cs2": {
+        "name": "Counter-Strike 2",
+        "process": "cs2",
+        "app_id": "730",
+        "large_image": "cs2_logo",
+        "large_text": "Counter-Strike 2",
+    },
+    "dota2": {
+        "name": "Dota 2",
+        "process": "dota2",
+        "app_id": "570",
+        "large_image": "dota2_logo",
+        "large_text": "Dota 2",
+    },
+}
+
+SOCKET_PATH = os.getenv("DISCORD_IPC", f"/run/user/{os.getuid()}/discord-ipc-0")
+POLL_INTERVAL = 5
+
+
+def find_process(proc_name):
+    try:
+        for p in subprocess.run(
+            ["pgrep", "-x", proc_name], capture_output=True, text=True, timeout=5
+        ).stdout.strip().split("\n"):
+            p = p.strip()
+            if p:
+                return int(p)
+    except Exception:
+        pass
+    return None
+
+
+def find_process_by_cmdline(keyword):
+    """Fallback: search /proc for processes matching keyword in cmdline."""
+    try:
+        for entry in os.listdir("/proc"):
+            if not entry.isdigit():
+                continue
+            try:
+                with open(f"/proc/{entry}/cmdline", "rb") as f:
+                    cmd = f.read().replace(b"\x00", b" ").decode(errors="replace")
+                if keyword in cmd.lower():
+                    return int(entry)
+            except (IOError, OSError, PermissionError):
+                continue
+    except Exception:
+        pass
+    return None
+
+
+def get_running_games():
+    running = []
+    for key, game in GAMES.items():
+        pid = find_process(game["process"]) or find_process_by_cmdline(game["process"])
+        if pid:
+            running.append(game)
+    return running
+
+
+def send_to_discord(sock, payload):
+    data = json.dumps(payload).encode()
+    header = struct.pack("<II", 1, len(data))
+    try:
+        sock.send(header + data)
+        resp_header = sock.recv(8)
+        if resp_header:
+            op, length = struct.unpack("<II", resp_header)
+            resp_data = b""
+            while len(resp_data) < length:
+                chunk = sock.recv(length - len(resp_data))
+                if not chunk:
+                    break
+                resp_data += chunk
+            return json.loads(resp_data.decode())
+    except (socket.timeout, ConnectionError, OSError) as e:
+        return {"error": str(e)}
+    return None
+
+
+def set_activity(sock, game):
+    activity = {
+        "pid": os.getpid(),
+        "activity": {
+            "state": "Playing",
+            "details": f"Playing {game['name']}",
+            "timestamps": {"start": int(time.time() * 1000)},
+            "assets": {
+                "large_image": game["large_image"],
+                "large_text": game["large_text"],
+            },
+        },
+    }
+    result = send_to_discord(
+        sock, {"cmd": "SET_ACTIVITY", "args": activity, "nonce": str(int(time.time() * 1000))}
+    )
+    return result
+
+
+def clear_activity(sock):
+    activity = {"pid": os.getpid(), "activity": None}
+    result = send_to_discord(
+        sock, {"cmd": "SET_ACTIVITY", "args": activity, "nonce": str(int(time.time() * 1000))}
+    )
+    return result
+
+
+def connect():
+    sock = socket.socket(socket.AF_UNIX, socket.SOCK_STREAM)
+    sock.settimeout(3)
+    sock.connect(SOCKET_PATH)
+    payload = json.dumps({"v": 1, "client_id": "0"}).encode()
+    header = struct.pack("<II", 0, len(payload))
+    sock.send(header + payload)
+    resp_header = sock.recv(8)
+    if not resp_header:
+        raise ConnectionError("No handshake response")
+    op, length = struct.unpack("<II", resp_header)
+    data = b""
+    while len(data) < length:
+        chunk = sock.recv(length - len(data))
+        if not chunk:
+            break
+        data += chunk
+    resp = json.loads(data.decode())
+    print(f"[bridge] Connected to Discord IPC as {resp.get('data', {}).get('user', {}).get('username', '?')}")
+    return sock
+
+
+def main():
+    print(f"[bridge] Steam RPC bridge starting (PID {os.getpid()})")
+    last_games = []
+
+    while True:
+        try:
+            sock = connect()
+        except Exception as e:
+            print(f"[bridge] Cannot connect to Discord IPC: {e}, retrying in {POLL_INTERVAL}s")
+            time.sleep(POLL_INTERVAL)
+            continue
+
+        try:
+            while True:
+                running = get_running_games()
+                if running != last_games:
+                    if running:
+                        game = running[0]
+                        print(f"[bridge] Game detected: {game['name']} (PID {find_process(game['process'])})")
+                        result = set_activity(sock, game)
+                        if result and "error" in result:
+                            print(f"[bridge] Error: {result['error']}")
+                            break
+                        print(f"[bridge] Activity set: {game['name']}")
+                    else:
+                        if last_games:
+                            print("[bridge] No games running, clearing activity")
+                            clear_activity(sock)
+                            print("[bridge] Activity cleared")
+                    last_games = running
+                time.sleep(POLL_INTERVAL)
+        except (ConnectionError, BrokenPipeError, OSError) as e:
+            print(f"[bridge] Connection lost: {e}, reconnecting...")
+            last_games = []
+            time.sleep(POLL_INTERVAL)
+
+
+if __name__ == "__main__":
+    main()

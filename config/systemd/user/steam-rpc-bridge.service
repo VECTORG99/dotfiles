@@ -1,0 +1,13 @@
+[Unit]
+Description=Steam RPC Bridge — sends game activity to Discord/Vesktop
+After=graphical-session.target
+Wants=graphical-session.target
+
+[Service]
+Type=simple
+ExecStart=/usr/bin/python3 -u %h/.local/bin/steam-rpc-bridge
+Restart=always
+RestartSec=5
+
+[Install]
+WantedBy=default.target
