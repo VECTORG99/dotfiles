@@ -6,67 +6,77 @@ import json
 import time
 import subprocess
 import sys
-
-GAMES = {
-    "cs2": {
-        "name": "Counter-Strike 2",
-        "process": "cs2",
-        "app_id": "730",
-        "large_image": "cs2_logo",
-        "large_text": "Counter-Strike 2",
-    },
-    "dota2": {
-        "name": "Dota 2",
-        "process": "dota2",
-        "app_id": "570",
-        "large_image": "dota2_logo",
-        "large_text": "Dota 2",
-    },
-}
+import urllib.request
+import re
 
 SOCKET_PATH = os.getenv("DISCORD_IPC", f"/run/user/{os.getuid()}/discord-ipc-0")
 POLL_INTERVAL = 5
+DETECTABLE_URL = "https://raw.githubusercontent.com/OpenAsar/arrpc/main/src/process/detectable.json"
+CACHE_FILE = os.path.expanduser("~/.cache/steam-rpc-detectable.json")
 
+steam_to_discord = {}
 
-def find_process(proc_name):
-    try:
-        for p in subprocess.run(
-            ["pgrep", "-x", proc_name], capture_output=True, text=True, timeout=5
-        ).stdout.strip().split("\n"):
-            p = p.strip()
-            if p:
-                return int(p)
-    except Exception:
-        pass
-    return None
+def load_detectable_db():
+    global steam_to_discord
+    data = None
+    if os.path.exists(CACHE_FILE) and time.time() - os.path.getmtime(CACHE_FILE) < 86400:
+        try:
+            with open(CACHE_FILE) as f:
+                data = json.load(f)
+        except Exception:
+            pass
+    if not data:
+        try:
+            with urllib.request.urlopen(DETECTABLE_URL, timeout=10) as r:
+                data = json.loads(r.read())
+            os.makedirs(os.path.dirname(CACHE_FILE), exist_ok=True)
+            with open(CACHE_FILE, "w") as f:
+                json.dump(data, f)
+        except Exception as e:
+            print(f"[bridge] Could not fetch detectable DB: {e}", file=sys.stderr)
+            if os.path.exists(CACHE_FILE):
+                with open(CACHE_FILE) as f:
+                    data = json.load(f)
+    if data:
+        for entry in data:
+            for sku in entry.get("third_party_skus", []):
+                if sku.get("distributor") == "steam":
+                    steam_to_discord[sku["id"]] = {
+                        "id": entry["id"],
+                        "name": entry["name"],
+                        "aliases": entry.get("aliases", []),
+                        "icon_hash": entry.get("icon_hash", ""),
+                    }
 
-
-def find_process_by_cmdline(keyword):
-    """Fallback: search /proc for processes matching keyword in cmdline."""
+def get_processes_with_steam_app_id():
+    games = {}
     try:
         for entry in os.listdir("/proc"):
             if not entry.isdigit():
                 continue
             try:
-                with open(f"/proc/{entry}/cmdline", "rb") as f:
-                    cmd = f.read().replace(b"\x00", b" ").decode(errors="replace")
-                if keyword in cmd.lower():
-                    return int(entry)
+                with open(f"/proc/{entry}/environ", "rb") as f:
+                    env = f.read().replace(b"\x00", b"\n").decode(errors="replace")
+                for line in env.split("\n"):
+                    if line.startswith("SteamAppId="):
+                        app_id = line.split("=", 1)[1].strip()
+                        games[app_id] = int(entry)
             except (IOError, OSError, PermissionError):
                 continue
     except Exception:
         pass
+    return games
+
+def get_game_name_from_steam(app_id):
+    try:
+        url = f"https://store.steampowered.com/api/appdetails?appids={app_id}"
+        with urllib.request.urlopen(url, timeout=5) as r:
+            data = json.loads(r.read())
+        if data.get(app_id, {}).get("success"):
+            return data[app_id]["data"]["name"]
+    except Exception:
+        pass
     return None
-
-
-def get_running_games():
-    running = []
-    for key, game in GAMES.items():
-        pid = find_process(game["process"]) or find_process_by_cmdline(game["process"])
-        if pid:
-            running.append(game)
-    return running
-
 
 def send_to_discord(sock, payload):
     data = json.dumps(payload).encode()
@@ -87,25 +97,26 @@ def send_to_discord(sock, payload):
         return {"error": str(e)}
     return None
 
-
-def set_activity(sock, game):
+def set_activity(sock, steam_app_id, game_name, discord_info):
     activity = {
         "pid": os.getpid(),
         "activity": {
-            "state": "Playing",
-            "details": f"Playing {game['name']}",
+            "name": game_name,
             "timestamps": {"start": int(time.time() * 1000)},
-            "assets": {
-                "large_image": game["large_image"],
-                "large_text": game["large_text"],
-            },
         },
     }
+    if discord_info:
+        activity["activity"]["application_id"] = discord_info["id"]
+        activity["activity"]["assets"] = {
+            "large_image": discord_info["icon_hash"],
+            "large_text": game_name,
+        }
+    else:
+        activity["activity"]["application_id"] = steam_app_id
     result = send_to_discord(
         sock, {"cmd": "SET_ACTIVITY", "args": activity, "nonce": str(int(time.time() * 1000))}
     )
     return result
-
 
 def clear_activity(sock):
     activity = {"pid": os.getpid(), "activity": None}
@@ -113,7 +124,6 @@ def clear_activity(sock):
         sock, {"cmd": "SET_ACTIVITY", "args": activity, "nonce": str(int(time.time() * 1000))}
     )
     return result
-
 
 def connect():
     sock = socket.socket(socket.AF_UNIX, socket.SOCK_STREAM)
@@ -136,43 +146,54 @@ def connect():
     print(f"[bridge] Connected to Discord IPC as {resp.get('data', {}).get('user', {}).get('username', '?')}")
     return sock
 
-
 def main():
     print(f"[bridge] Steam RPC bridge starting (PID {os.getpid()})")
-    last_games = []
+    load_detectable_db()
+    print(f"[bridge] Loaded {len(steam_to_discord)} Steam games in detectable DB")
+    name_cache = {}
+    last_ids = set()
 
     while True:
         try:
             sock = connect()
         except Exception as e:
-            print(f"[bridge] Cannot connect to Discord IPC: {e}, retrying in {POLL_INTERVAL}s")
+            print(f"[bridge] Cannot connect to Discord IPC: {e}, retrying in {POLL_INTERVAL}s", file=sys.stderr)
             time.sleep(POLL_INTERVAL)
             continue
 
         try:
             while True:
-                running = get_running_games()
-                if running != last_games:
-                    if running:
-                        game = running[0]
-                        print(f"[bridge] Game detected: {game['name']} (PID {find_process(game['process'])})")
-                        result = set_activity(sock, game)
+                running = get_processes_with_steam_app_id()
+                current_ids = set(running.keys())
+
+                if current_ids != last_ids:
+                    if current_ids:
+                        sid = next(iter(current_ids))
+                        discord_info = steam_to_discord.get(sid)
+                        name = discord_info["name"] if discord_info else name_cache.get(sid)
+                        if not name:
+                            name = get_game_name_from_steam(sid)
+                            if name:
+                                name_cache[sid] = name
+                        if not name:
+                            name = sid
+                        print(f"[bridge] Steam game detected (AppID {sid}): {name}")
+                        if discord_info:
+                            print(f"[bridge]   Discord App ID: {discord_info['id']}")
+                        result = set_activity(sock, sid, name, discord_info)
                         if result and "error" in result:
-                            print(f"[bridge] Error: {result['error']}")
+                            print(f"[bridge] Error: {result['error']}", file=sys.stderr)
                             break
-                        print(f"[bridge] Activity set: {game['name']}")
                     else:
-                        if last_games:
-                            print("[bridge] No games running, clearing activity")
+                        if last_ids:
+                            print("[bridge] No Steam games running, clearing activity")
                             clear_activity(sock)
-                            print("[bridge] Activity cleared")
-                    last_games = running
+                    last_ids = current_ids
                 time.sleep(POLL_INTERVAL)
         except (ConnectionError, BrokenPipeError, OSError) as e:
-            print(f"[bridge] Connection lost: {e}, reconnecting...")
-            last_games = []
+            print(f"[bridge] Connection lost: {e}, reconnecting...", file=sys.stderr)
+            last_ids = set()
             time.sleep(POLL_INTERVAL)
-
 
 if __name__ == "__main__":
     main()
