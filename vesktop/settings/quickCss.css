@@ -9,6 +9,8 @@
   --fa-text-muted: #6a9ab0;
   --fa-surface: #0f2240;
   --fa-deep: #061220;
+  --channels-default: #80b8c8;
+  --channel-icon: #5a8898;
 }
 
 .theme-light {
@@ -20,6 +22,8 @@
   --fa-text-muted: #5a8a9a;
   --fa-surface: #d4eaf5;
   --fa-deep: #c0dcec;
+  --channels-default: #3a6070;
+  --channel-icon: #5a8898;
 }
 
 /* ==========================================
@@ -211,6 +215,27 @@ code:not([class*="codeBlock_"] code) {
 [class*="sidebarList_"] [class*="header_"] {
   background: transparent !important;
   box-shadow: 0 1px 0 rgba(0,212,232,0.1) !important;
+}
+
+/* Channel and voice channel names */
+[class*="sidebarList_"] [class*="name_"],
+[class*="sidebarList_"] [class*="channelName_"] {
+  color: var(--fa-text) !important;
+}
+
+/* Channel icons (hashtag, voice, lock, etc) */
+[class*="sidebarList_"] [class*="icon_"] {
+  color: var(--fa-text-muted) !important;
+}
+
+/* Voice channel users */
+[class*="sidebarList_"] [class*="voiceUser_"] {
+  color: var(--fa-text-muted) !important;
+}
+
+/* Unread channel indicator */
+[class*="sidebarList_"] [class*="unread_"] {
+  background: var(--fa-accent) !important;
 }
 
 /* Search bar in sidebar */
