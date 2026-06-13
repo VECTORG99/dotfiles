@@ -47,3 +47,4 @@ o.bind("SUPER + W", "Toggle window floating/tiling", hl.dsp.window.float({ actio
 -- o.bind("SUPER + PERIOD", nil, { omarchy = "walker -m symbols" })
 
 o.bind("SUPER + SHIFT + T", "Weather widget", "~/.local/bin/eww open weather --toggle")
+o.bind("SUPER + SHIFT + K", "Clock widget", "~/.local/bin/eww open clock --toggle")
