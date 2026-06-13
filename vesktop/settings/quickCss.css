@@ -1,0 +1,480 @@
+/* Frutiger Aero — Aquatic Edition */
+
+:root {
+  --fa-bg: #0a1628;
+  --fa-sidebar: #0d1d38;
+  --fa-accent: #00d4e8;
+  --fa-accent2: #00e5a0;
+  --fa-text: #d8f0f8;
+  --fa-text-muted: #6a9ab0;
+  --fa-surface: #0f2240;
+  --fa-deep: #061220;
+}
+
+.theme-light {
+  --fa-bg: #e0f0f8;
+  --fa-sidebar: #cde6f4;
+  --fa-accent: #0098c8;
+  --fa-accent2: #00b878;
+  --fa-text: #122838;
+  --fa-text-muted: #5a8a9a;
+  --fa-surface: #d4eaf5;
+  --fa-deep: #c0dcec;
+}
+
+/* ==========================================
+   BACKGROUNDS — oceanic gradients
+   ========================================== */
+html, #app-mount {
+  background: linear-gradient(175deg, var(--fa-deep) 0%, var(--fa-bg) 60%, #0d2a30 100%) !important;
+}
+[class*="guilds_"] {
+  background: linear-gradient(180deg, #0c1b35 0%, #0f2840 100%) !important;
+}
+[class*="sidebarList_"] {
+  background: linear-gradient(180deg, var(--fa-sidebar) 0%, #142844 100%) !important;
+}
+[class*="membersWrap_"] {
+  background: linear-gradient(180deg, #142844 0%, var(--fa-sidebar) 100%) !important;
+}
+[class*="chat_"], [class*="messagesWrapper_"] {
+  background: linear-gradient(175deg, var(--fa-deep) 0%, var(--fa-bg) 60%, #0d2a30 100%) !important;
+}
+
+/* ==========================================
+   ACCENTS — glowing aqua
+   ========================================== */
+[class*="guilds_"] [class*="pill_"] {
+  background: var(--fa-accent) !important;
+  box-shadow: 0 0 10px rgba(0,212,232,0.5) !important;
+}
+[class*="sidebarList_"] [class*="modeSelected_"] {
+  border-left: 3px solid var(--fa-accent) !important;
+}
+[class*="message_"][class*="mentioned_"] {
+  border-left: 3px solid var(--fa-accent) !important;
+  background: linear-gradient(90deg, rgba(0,212,232,0.08) 0%, transparent 50%) !important;
+}
+blockquote {
+  border-left: 3px solid var(--fa-accent) !important;
+  background: rgba(0,212,232,0.04) !important;
+  border-radius: 0 6px 6px 0 !important;
+}
+[class*="numberBadge_"] {
+  background: linear-gradient(135deg, var(--fa-accent), #0078a0) !important;
+  box-shadow: 0 0 8px rgba(0,212,232,0.4) !important;
+}
+[class*="jumpToPresentBar_"] {
+  background: linear-gradient(90deg, var(--fa-accent), var(--fa-accent2)) !important;
+  box-shadow: 0 0 12px rgba(0,212,232,0.4) !important;
+}
+[class*="botTag_"] {
+  background: var(--fa-accent) !important;
+}
+
+/* ==========================================
+   CHAT INPUT — glass edge effect
+   ========================================== */
+[class*="channelTextArea_"] {
+  background: var(--fa-surface) !important;
+  border: 1px solid rgba(0,212,232,0.18) !important;
+  border-radius: 12px !important;
+  box-shadow: inset 0 1px 0 rgba(255,255,255,0.04), 0 2px 12px rgba(0,0,0,0.15) !important;
+}
+[class*="channelTextArea_"] [class*="scrollableContainer_"] {
+  background: var(--fa-deep) !important;
+  border-radius: 8px !important;
+}
+
+/* ==========================================
+   SCROLLBAR — thin cyan
+   ========================================== */
+::-webkit-scrollbar-thumb {
+  background: linear-gradient(180deg, var(--fa-accent), #0078a0) !important;
+  border-radius: 4px !important;
+}
+
+/* ==========================================
+   TEXT
+   ========================================== */
+[class*="username_"], [class*="colorHeaderPrimary_"] { color: var(--fa-text) !important; }
+[class*="colorHeaderSecondary_"], [class*="timestamp_"], [class*="edited_"] { color: var(--fa-text-muted) !important; }
+[class*="sidebarList_"] [class*="category_"] {
+  color: var(--fa-accent) !important;
+  font-weight: 700 !important;
+}
+
+/* ==========================================
+   EMBEDS — bordered panels
+   ========================================== */
+[class*="embedFull_"] {
+  background: var(--fa-surface) !important;
+  border: 1px solid rgba(0,212,232,0.15) !important;
+  border-left: 3px solid var(--fa-accent) !important;
+  border-radius: 8px !important;
+}
+
+/* ==========================================
+   CODE — dark glass
+   ========================================== */
+[class*="codeBlock_"] {
+  background: var(--fa-deep) !important;
+  border: 1px solid rgba(0,212,232,0.1) !important;
+  border-radius: 6px !important;
+}
+code:not([class*="codeBlock_"] code) {
+  background: rgba(0,212,232,0.1) !important;
+  color: var(--fa-accent) !important;
+  padding: 1px 4px !important;
+  border-radius: 3px !important;
+}
+
+/* ==========================================
+   MENTIONS
+   ========================================== */
+[class*="mention_"] {
+  background: rgba(0,212,232,0.12) !important;
+  color: var(--fa-accent) !important;
+  border-radius: 4px !important;
+}
+[class*="mention_"]:hover {
+  background: rgba(0,212,232,0.2) !important;
+}
+
+/* ==========================================
+   REACTIONS — subtle bubbles
+   ========================================== */
+[class*="reaction_"] {
+  background: var(--fa-surface) !important;
+  border: 1px solid rgba(0,212,232,0.1) !important;
+  border-radius: 8px !important;
+}
+[class*="reaction_"]:hover {
+  background: rgba(0,212,232,0.1) !important;
+  border-color: rgba(0,212,232,0.3) !important;
+}
+[class*="reactionMe_"] {
+  background: rgba(0,212,232,0.15) !important;
+  border-color: var(--fa-accent) !important;
+}
+
+/* ==========================================
+   USER PANEL — bottom bar with your name/avatar
+   ========================================== */
+[class*="panels_"] {
+  background: var(--fa-surface) !important;
+  border-top: 1px solid rgba(0,212,232,0.2) !important;
+  box-shadow: inset 0 1px 0 rgba(255,255,255,0.04) !important;
+}
+
+/* Avatar glow */
+[class*="panels_"] [class*="avatar_"] {
+  box-shadow: 0 0 10px rgba(0,212,232,0.4) !important;
+  border: 2px solid rgba(0,212,232,0.35) !important;
+  border-radius: 50% !important;
+}
+
+/* Panel buttons (mute, deafen, settings) */
+[class*="panels_"] [class*="button_"] {
+  color: var(--fa-text-muted) !important;
+}
+[class*="panels_"] [class*="button_"]:hover {
+  color: var(--fa-accent) !important;
+  background: rgba(0,212,232,0.1) !important;
+  border-radius: 6px !important;
+}
+
+/* ==========================================
+   SIDEBAR — channels, hover, search, header
+   ========================================== */
+
+/* Channel hover */
+[class*="sidebarList_"] [class*="interactive_"]:hover {
+  background: rgba(0,212,232,0.06) !important;
+  border-radius: 6px !important;
+}
+
+/* Channel items — rounded */
+[class*="sidebarList_"] [class*="interactive_"] {
+  border-radius: 6px !important;
+  margin: 0 4px !important;
+}
+
+/* Selected channel — glow left border */
+[class*="sidebarList_"] [class*="modeSelected_"] {
+  background: linear-gradient(90deg, rgba(0,212,232,0.1) 0%, transparent 70%) !important;
+  border-left: 3px solid var(--fa-accent) !important;
+  border-radius: 0 6px 6px 0 !important;
+}
+
+/* Server name header */
+[class*="sidebarList_"] [class*="header_"] {
+  background: transparent !important;
+  box-shadow: 0 1px 0 rgba(0,212,232,0.1) !important;
+}
+
+/* Search bar in sidebar */
+[class*="sidebarList_"] [class*="searchBar_"] {
+  background: var(--fa-deep) !important;
+  border: 1px solid rgba(0,212,232,0.12) !important;
+  border-radius: 8px !important;
+  margin: 8px !important;
+}
+
+/* ==========================================
+   MISC
+   ========================================== */
+::selection { background: rgba(0,212,232,0.3) !important; }
+[class*="spinner_"] [class*="inner_"] { border-top-color: var(--fa-accent) !important; border-left-color: var(--fa-accent) !important; }
+a[class*="anchor_"] { color: var(--fa-accent) !important; }
+[class*="separator_"] { background: rgba(0,212,232,0.1) !important; }
+[class*="lookFilled_"] { background: var(--fa-accent) !important; }
+[class*="checked_"] { background: var(--fa-accent) !important; }
+[class*="spoiler_"] { background: rgba(255,255,255,0.1) !important; }
+[class*="privateChannels_"], [class*="peopleColumn_"] { background: var(--fa-sidebar) !important; }
+
+/* ==========================================
+   DM LIST — direct messages sidebar
+   ========================================== */
+[class*="privateChannels_"] [class*="searchBar_"] {
+  background: var(--fa-deep) !important;
+  border: 1px solid rgba(0,212,232,0.12) !important;
+  border-radius: 8px !important;
+  margin: 8px !important;
+}
+[class*="privateChannels_"] [class*="interactive_"] {
+  border-radius: 6px !important;
+  margin: 0 4px !important;
+}
+[class*="privateChannels_"] [class*="interactive_"]:hover {
+  background: rgba(0,212,232,0.06) !important;
+}
+[class*="privateChannels_"] [class*="modeSelected_"] {
+  background: linear-gradient(90deg, rgba(0,212,232,0.1) 0%, transparent 70%) !important;
+  border-left: 3px solid var(--fa-accent) !important;
+  border-radius: 0 6px 6px 0 !important;
+}
+
+/* ==========================================
+   FRIENDS LIST
+   ========================================== */
+[class*="peopleColumn_"] [class*="scroller_"] {
+  background: transparent !important;
+}
+
+/* Friends list items */
+[class*="peopleColumn_"] [class*="peopleListItem_"] {
+  border-radius: 8px !important;
+  margin: 0 8px 2px 8px !important;
+}
+[class*="peopleColumn_"] [class*="peopleListItem_"]:hover {
+  background: rgba(0,212,232,0.06) !important;
+}
+[class*="peopleColumn_"] [class*="peopleListItem_"][class*="active_"] {
+  background: rgba(0,212,232,0.1) !important;
+}
+
+/* Friends action buttons */
+[class*="peopleColumn_"] [class*="actionButton_"] {
+  background: rgba(0,212,232,0.1) !important;
+  border-radius: 6px !important;
+}
+[class*="peopleColumn_"] [class*="actionButton_"]:hover {
+  background: rgba(0,212,232,0.2) !important;
+}
+
+/* ==========================================
+   ACTIVE NOW / FRIENDS ACTIVITY
+   ========================================== */
+[class*="nowPlayingColumn_"] {
+  background: var(--fa-sidebar) !important;
+}
+
+[class*="nowPlayingColumn_"] [class*="itemCard_"] {
+  background: var(--fa-surface) !important;
+  border: 1px solid rgba(0,212,232,0.12) !important;
+  border-radius: 10px !important;
+  margin: 4px 8px !important;
+}
+[class*="nowPlayingColumn_"] [class*="itemCard_"]:hover {
+  background: rgba(0,212,232,0.06) !important;
+  border-color: rgba(0,212,232,0.25) !important;
+}
+
+[class*="nowPlayingColumn_"] [class*="scroller_"] {
+  background: transparent !important;
+}
+
+/* Friends tab bar (Online | Todos | Pendientes | Bloqueados) */
+[class*="peopleColumn_"] [class*="tabBar_"] {
+  border-bottom: 1px solid rgba(0,212,232,0.12) !important;
+  margin: 0 8px !important;
+}
+[class*="peopleColumn_"] [class*="tabBar_"] [class*="tab_"] {
+  border-radius: 6px 6px 0 0 !important;
+  color: var(--fa-text-muted) !important;
+}
+[class*="peopleColumn_"] [class*="tabBar_"] [class*="tab_"][class*="active_"] {
+  color: var(--fa-accent) !important;
+  background: rgba(0,212,232,0.08) !important;
+}
+[class*="peopleColumn_"] [class*="tabBar_"] [class*="tab_"]:hover {
+  color: var(--fa-text) !important;
+  background: rgba(0,212,232,0.04) !important;
+}
+
+/* ==========================================
+   TOP NAV — Amigos, Nitro, Tienda, etc
+   ========================================== */
+[class*="privateChannels_"] [class*="scroller_"] {
+  background: transparent !important;
+}
+
+/* Top section with Friends/Nitro/Shop tabs */
+[class*="sidebarList_"] [class*="listItem_"] {
+  border-radius: 6px !important;
+  margin: 0 4px !important;
+}
+[class*="sidebarList_"] [class*="listItem_"]:hover {
+  background: rgba(0,212,232,0.06) !important;
+}
+[class*="sidebarList_"] [class*="listItem_"][class*="selected_"] {
+  background: rgba(0,212,232,0.1) !important;
+  color: var(--fa-accent) !important;
+}
+
+/* ==========================================
+   CHAT HEADER — channel name, call buttons, pins
+   ========================================== */
+
+/* Channel name at the top bar */
+[class*="chat_"] [class*="title_"],
+[class*="chat_"] [class*="name_"],
+[class*="chat_"] [class*="channelName_"] {
+  color: var(--fa-text) !important;
+}
+
+/* Topic / description */
+[class*="chat_"] [class*="topic_"],
+[class*="chat_"] [class*="subtitle_"] {
+  color: var(--fa-accent) !important;
+  opacity: 0.8 !important;
+}
+
+/* Toolbar icons: call, video, pins, notifications, search, threads, inbox */
+[class*="chat_"] [class*="toolbar_"] [class*="iconWrapper_"],
+[class*="chat_"] [class*="toolbar_"] [class*="icon_"],
+[class*="chat_"] [class*="toolbar_"] [class*="clickable_"],
+[class*="chat_"] [class*="toolbar_"] [class*="button_"],
+[class*="chat_"] [class*="toolbar_"] [class*="anchor_"] {
+  color: var(--fa-text-muted) !important;
+  border-radius: 6px !important;
+}
+
+[class*="chat_"] [class*="toolbar_"] [class*="iconWrapper_"]:hover,
+[class*="chat_"] [class*="toolbar_"] [class*="icon_"]:hover,
+[class*="chat_"] [class*="toolbar_"] [class*="clickable_"]:hover,
+[class*="chat_"] [class*="toolbar_"] [class*="button_"]:hover,
+[class*="chat_"] [class*="toolbar_"] [class*="anchor_"]:hover {
+  color: var(--fa-accent) !important;
+  background: rgba(0,212,232,0.1) !important;
+}
+
+/* Chat header background */
+[class*="chat_"] [class*="chatHeader_"],
+[class*="chat_"] [class*="upperBar_"] {
+  background: transparent !important;
+  border-bottom: 1px solid rgba(0,212,232,0.1) !important;
+}
+
+/* Divider between header and messages */
+[class*="chat_"] [class*="divider_"] {
+  background: rgba(0,212,232,0.08) !important;
+}
+
+/* ==========================================
+   HEADER — title, toolbar, background
+   ========================================== */
+
+/* subtitleContainer is the outer DM header wrapper */
+[class*="subtitleContainer_"] {
+  background: transparent !important;
+}
+
+/* container__ + themed__ = the actual visible bar (section element) */
+[class*="subtitleContainer_"] [class*="themed_"] {
+  background: transparent !important;
+  border-bottom: 1px solid rgba(0,212,232,0.15) !important;
+}
+
+/* DM/channel name */
+[class*="subtitleContainer_"] [class*="defaultColor_"] {
+  color: var(--fa-text) !important;
+}
+
+/* Toolbar icons */
+[class*="toolbar_"] [class*="iconWrapper_"] {
+  color: var(--fa-text-muted) !important;
+  border-radius: 6px !important;
+}
+[class*="toolbar_"] [class*="iconWrapper_"]:hover {
+  color: var(--fa-accent) !important;
+  background: rgba(0,212,232,0.1) !important;
+}
+
+/* ==========================================
+   SIDEBAR TITLE — "Mensajes directos", "Amigos"
+   ========================================== */
+[class*="title_"] [class*="defaultColor_"],
+[class*="privateChannels_"] [class*="title_"],
+[class*="peopleColumn_"] [class*="title_"] {
+  color: var(--fa-accent) !important;
+  font-weight: 700 !important;
+  text-transform: uppercase !important;
+  letter-spacing: 0.5px !important;
+}
+
+/* Remaining uncategorized defaultColor text elements */
+[class*="defaultColor_"] {
+  color: var(--fa-text) !important;
+}
+
+/* Toolbar icons */
+[class*="toolbar_"] [class*="iconWrapper_"] {
+  color: var(--fa-text-muted) !important;
+  border-radius: 6px !important;
+}
+[class*="toolbar_"] [class*="iconWrapper_"]:hover {
+  color: var(--fa-accent) !important;
+  background: rgba(0,212,232,0.1) !important;
+}
+
+/* ==========================================
+   SIDEBAR TITLE — "Mensajes directos", "Amigos", etc
+   ========================================== */
+[class*="privateChannels_"] [class*="title_"] {
+  color: var(--fa-accent) !important;
+  font-weight: 700 !important;
+}
+[class*="peopleColumn_"] [class*="title_"] {
+  color: var(--fa-accent) !important;
+  font-weight: 700 !important;
+}
+
+/* ==========================================
+   SETTINGS sidebar tabs
+   ========================================== */
+[class*="sidebarRegion_"] [class*="item_"]:hover {
+  background: rgba(0,212,232,0.06) !important;
+}
+[class*="sidebarRegion_"] [class*="item_"][class*="selected_"] {
+  background: rgba(0,212,232,0.12) !important;
+  color: var(--fa-accent) !important;
+}
+
+/* Add friend button */
+[class*="peopleColumn_"] [class*="addFriend_"] {
+  background: var(--fa-accent) !important;
+  color: #fff !important;
+  border-radius: 6px !important;
+}
