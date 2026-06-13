@@ -231,46 +231,132 @@
 .clock-container {
   background: rgba(10, 22, 40, 0.90);
   border: 1px solid #1B3D5C;
-  border-radius: 26px;
-  padding: 22px 24px;
+  border-radius: 24px;
+  padding: 12px 24px 16px 24px;
+  min-width: 460px;
   box-shadow:
-    inset 0 1px 0 rgba(255, 255, 255, 0.08),
-    0 0 24px rgba(18, 153, 202, 0.15),
-    0 4px 32px rgba(10, 22, 40, 0.50),
-    0 8px 44px rgba(0, 0, 0, 0.25);
+    inset 0 1px 0 rgba(255,255,255,0.08),
+    0 0 30px rgba(18,153,202,0.15),
+    0 4px 24px rgba(10,22,40,0.50),
+    0 8px 40px rgba(0,0,0,0.25);
 }
 
-.clock-date {
-  font-size: 14px;
-  font-weight: 500;
-  color: #7799AA;
+.clock-sep-top {
+  min-height: 1px;
+  border-radius: 1px;
   margin-bottom: 6px;
+  background: linear-gradient(90deg,
+    transparent 10%,
+    rgba(18,153,202,0.15) 30%,
+    rgba(18,153,202,0.25) 50%,
+    rgba(18,153,202,0.15) 70%,
+    transparent 90%);
+}
+
+.clock-top {
+  margin-bottom: 4px;
+  padding: 0 4px;
+}
+
+.clock-tz {
+  font-size: 11px;
+  font-weight: 600;
+  color: #7799AA;
+  letter-spacing: 1px;
+  min-width: 48px;
+}
+
+.clock-ampm {
+  font-size: 24px;
+  font-weight: 700;
+  color: #35C8E0;
+  text-shadow: 0 0 12px rgba(18,153,202,0.40);
+  letter-spacing: 2px;
+  min-width: 60px;
+}
+
+.clock-accent {
+  min-height: 2px;
+  border-radius: 1px;
+  margin: 6px 0;
+  background: linear-gradient(90deg,
+    transparent 5%,
+    rgba(18,153,202,0.10) 15%,
+    rgba(80,200,160,0.35) 35%,
+    rgba(18,153,202,0.55) 50%,
+    rgba(80,200,160,0.35) 65%,
+    rgba(18,153,202,0.10) 85%,
+    transparent 95%);
+}
+
+.clock-panel {
+  padding: 10px 0;
+  margin: 8px 0;
+  border-radius: 16px;
+  background: rgba(18,153,202,0.06);
+  border: 1px solid rgba(200,240,240,0.08);
+  box-shadow:
+    inset 0 1px 0 rgba(255,255,255,0.03),
+    inset 0 0 30px rgba(18,153,202,0.04);
 }
 
 .clock-time-row {
-  margin: 8px 0;
+  margin: 4px 0;
 }
 
-.clock-hour,
-.clock-minute {
-  font-size: 52px;
+.clock-digit {
+  font-size: 54px;
   font-weight: 700;
   color: #C8F0F0;
-  text-shadow: 0 2px 12px rgba(18, 153, 202, 0.25);
+  text-shadow: 0 2px 12px rgba(18,153,202,0.30);
+  min-width: 80px;
 }
 
 .clock-colon {
-  font-size: 42px;
-  font-weight: 400;
-  color: #557788;
-  margin: 0 2px;
-  text-shadow: 0 1px 6px rgba(18, 153, 202, 0.15);
-}
-
-.clock-seconds {
-  font-size: 18px;
+  font-size: 44px;
   font-weight: 500;
   color: #557788;
-  margin-left: 6px;
-  margin-top: 26px;
+  margin: 0 6px;
+  min-width: 24px;
+}
+
+.clock-sec-row {
+  margin-top: 2px;
+}
+
+.clock-sec {
+  font-size: 16px;
+  font-weight: 600;
+  color: #7799AA;
+}
+
+.clock-sec-label {
+  font-size: 9px;
+  font-weight: 600;
+  color: #446666;
+  margin-left: 4px;
+  margin-top: 2px;
+}
+
+.clock-sep-bottom {
+  min-height: 1px;
+  border-radius: 1px;
+  margin-top: 8px;
+  background: linear-gradient(90deg,
+    transparent 10%,
+    rgba(80,200,160,0.12) 30%,
+    rgba(18,153,202,0.20) 50%,
+    rgba(80,200,160,0.12) 70%,
+    transparent 90%);
+}
+
+.clock-date {
+  font-size: 12px;
+  font-weight: 600;
+  color: #88AABB;
+  min-width: 200px;
+}
+
+.clock-date-row {
+  margin-top: 8px;
 }
