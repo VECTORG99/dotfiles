@@ -1,6 +1,6 @@
 /* Frutiger Aero — Aquatic Edition */
 
-:root {
+html {
   --fa-bg: #0a1628;
   --fa-sidebar: #0d1d38;
   --fa-accent: #00d4e8;
@@ -11,6 +11,10 @@
   --fa-deep: #061220;
   --channels-default: #80b8c8;
   --channel-icon: #5a8898;
+  --interactive-normal: #6a9ab0;
+  --interactive-hover: #a0d8e8;
+  --interactive-active: #00d4e8;
+  --interactive-muted: #3a6070;
 }
 
 .theme-light {
@@ -217,25 +221,45 @@ code:not([class*="codeBlock_"] code) {
   box-shadow: 0 1px 0 rgba(0,212,232,0.1) !important;
 }
 
-/* Channel and voice channel names */
+/* Force all text in channel sidebar to use theme color */
 [class*="sidebarList_"] [class*="name_"],
-[class*="sidebarList_"] [class*="channelName_"] {
+[class*="sidebarList_"] [class*="channelName_"],
+[class*="sidebarList_"] [class*="content_"],
+[class*="sidebarList_"] [class*="mainContent_"],
+[class*="sidebarList_"] [class*="overflow_"],
+[class*="sidebarList_"] [class*="text_"],
+[class*="sidebarList_"] [class*="label_"],
+[class*="sidebarList_"] [class*="link_"],
+[class*="sidebarList_"] [class*="title_"],
+[class*="sidebarList_"] [class*="children_"],
+[class*="sidebarList_"] [class*="subtext_"] {
   color: var(--fa-text) !important;
 }
 
-/* Channel icons (hashtag, voice, lock, etc) */
-[class*="sidebarList_"] [class*="icon_"] {
+/* Channel icons */
+[class*="sidebarList_"] [class*="icon_"],
+[class*="sidebarList_"] [class*="channelIcon_"],
+[class*="sidebarList_"] svg {
   color: var(--fa-text-muted) !important;
 }
 
-/* Voice channel users */
-[class*="sidebarList_"] [class*="voiceUser_"] {
+/* Voice channel specific */
+[class*="sidebarList_"] [class*="voiceUser_"],
+[class*="sidebarList_"] [class*="user_"] {
   color: var(--fa-text-muted) !important;
 }
 
-/* Unread channel indicator */
+/* Unread indicator */
 [class*="sidebarList_"] [class*="unread_"] {
   background: var(--fa-accent) !important;
+}
+
+/* Muted channel — keep dimmed */
+[class*="sidebarList_"] [class*="muted_"],
+[class*="sidebarList_"] [class*="muted_"] [class*="name_"],
+[class*="sidebarList_"] [class*="muted_"] [class*="content_"] {
+  color: var(--fa-text-muted) !important;
+  opacity: 0.5 !important;
 }
 
 /* Search bar in sidebar */
