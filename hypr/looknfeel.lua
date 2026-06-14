@@ -1,8 +1,10 @@
 -- Frutiger Aero look'n'feel: burbujas, glass, blur profundo
 
 -- Cursor theme
-hl.env("XCURSOR_THEME", "Bibata-Modern-Ice")
-hl.env("HYPRCURSOR_THEME", "Bibata-Modern-Ice")
+-- Set via ~/.icons/default/index.theme (inherits Bibata-Modern-Ice)
+-- hl.env("XCURSOR_THEME", "Bibata-Modern-Ice")
+-- hl.env("HYPRCURSOR_THEME", "Bibata-Modern-Ice")
+hl.env("WLR_NO_HARDWARE_CURSORS", "1")
 
 hl.config({
   general = {
@@ -11,6 +13,12 @@ hl.config({
     border_size = 3,
     layout = "dwindle",
     resize_on_border = true,
+  },
+})
+
+hl.config({
+  cursor = {
+    no_hardware_cursors = true,
   },
 })
 
@@ -101,13 +109,18 @@ hl.layer_rule({
   ignore_alpha = 0.2,
 })
 
--- Steam fixes
+-- Steam / CS2 fixes
 hl.config({
-  windowrulev2 = {
-    "noblur,class:^(steam)$",
-    "rounding 0,class:^(steam)$",
-    "noanim,class:^(steam)$",
-  },
+	windowrulev2 = {
+		"noblur,class:^(steam)$",
+		"rounding 0,class:^(steam)$",
+		"noanim,class:^(steam)$",
+		"noblur,class:^(cs2)$",
+		"rounding 0,class:^(cs2)$",
+		"noanim,class:^(cs2)$",
+		"force_zero_scaling,class:^(cs2)$",
+		"fullscreen,class:^(cs2)$",
+	},
 })
 
 -- XWayland apps heredan rounding FA
