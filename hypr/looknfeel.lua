@@ -4,7 +4,7 @@
 -- Set via ~/.icons/default/index.theme (inherits Bibata-Modern-Ice)
 -- hl.env("XCURSOR_THEME", "Bibata-Modern-Ice")
 -- hl.env("HYPRCURSOR_THEME", "Bibata-Modern-Ice")
-hl.env("WLR_NO_HARDWARE_CURSORS", "1")
+-- hl.env("WLR_NO_HARDWARE_CURSORS", "1")
 
 hl.config({
   general = {
@@ -18,7 +18,7 @@ hl.config({
 
 hl.config({
   cursor = {
-    no_hardware_cursors = true,
+    no_hardware_cursors = false,
   },
 })
 
@@ -109,6 +109,14 @@ hl.layer_rule({
   ignore_alpha = 0.2,
 })
 
+-- XWayland global: game compat
+hl.config({
+  xwayland = {
+    use_nearest_neighbor = false,
+    force_zero_scaling = true,
+  },
+})
+
 -- Steam / CS2 fixes
 hl.config({
 	windowrulev2 = {
@@ -118,7 +126,6 @@ hl.config({
 		"noblur,class:^(cs2)$",
 		"rounding 0,class:^(cs2)$",
 		"noanim,class:^(cs2)$",
-		"force_zero_scaling,class:^(cs2)$",
 		"fullscreen,class:^(cs2)$",
 	},
 })
