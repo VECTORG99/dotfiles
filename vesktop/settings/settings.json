@@ -2,7 +2,9 @@
     "autoUpdate": true,
     "autoUpdateNotification": true,
     "useQuickCss": true,
-    "themeLinks": [],
+    "themeLinks": [
+        "file:///home/vector/.config/vesktop/themes/frutiger-aero/frutiger-aero.theme.css"
+    ],
     "eagerPatches": false,
     "enabledThemes": [],
     "enableReactDevtools": false,
