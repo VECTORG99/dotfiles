@@ -8,7 +8,7 @@ hl.config({
 		-- Use a specific keyboard variant if needed (e.g. intl for international keyboards).
 		-- kb_variant = "intl",
 
-		kb_options = "grp:alts_toggle",
+		kb_options = "",
 
 		-- Change speed of keyboard repeat.
 		repeat_rate = 40,
@@ -18,10 +18,10 @@ hl.config({
 		numlock_by_default = true,
 
 		-- Increase sensitivity for mouse/trackpad (default: 0).
-		-- sensitivity = 0.35,
+		sensitivity = 0,
 
 		-- Turn off mouse acceleration (default: adaptive).
-		-- accel_profile = "flat",
+		accel_profile = "flat",
 
 		touchpad = {
 			-- Use natural (inverse) scrolling.
