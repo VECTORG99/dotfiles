@@ -1,6 +1,5 @@
 /* Frutiger Aero — Aquatic Edition */
 
-/* Custom vars (only ours, not Discord's) */
 html {
   --fa-bg: #0a1628;
   --fa-sidebar: #0d1d38;
@@ -42,50 +41,46 @@ html, #app-mount {
 }
 
 /* ==========================================
-   GLOBAL TEXT & ICONS
+   BRUTE FORCE TEXT — catch ALL elements in key containers
    ========================================== */
 
-/* Override Discord's text color classes */
-[class*="defaultColor_"],
-[class*="colorDefault_"],
-[class*="colorPrimary_"],
-[class*="colorHeaderPrimary_"],
-[class*="colorText_"],
-[class*="textNormal_"],
-[class*="username_"],
-[class*="nickname_"],
-[class*="globalName_"] {
+/* Sidebar list: every text element gets theme color */
+[class*="sidebarList_"] div,
+[class*="sidebarList_"] span,
+[class*="sidebarList_"] a,
+[class*="sidebarList_"] h1,
+[class*="sidebarList_"] h2,
+[class*="sidebarList_"] h3,
+[class*="sidebarList_"] h4,
+[class*="sidebarList_"] p,
+[class*="sidebarList_"] label,
+[class*="sidebarList_"] svg {
   color: var(--fa-text) !important;
 }
 
-/* Secondary / muted text */
-[class*="colorHeaderSecondary_"],
-[class*="colorMuted_"],
-[class*="colorSecondary_"],
-[class*="textMuted_"],
-[class*="timestamp_"],
-[class*="edited_"],
-[class*="subtext_"] {
-  color: var(--fa-text-muted) !important;
-}
-
-/* Links */
-[class*="anchor_"] {
+/* Keep category headers in accent */
+[class*="sidebarList_"] [class*="category_"] div,
+[class*="sidebarList_"] [class*="category_"] span {
   color: var(--fa-accent) !important;
 }
 
-/* All interactive icons */
-[class*="iconWrapper_"],
-[class*="iconContainer_"] {
+/* Dim muted channels */
+[class*="sidebarList_"] [class*="muted_"] div,
+[class*="sidebarList_"] [class*="muted_"] span {
   color: var(--fa-text-muted) !important;
+  opacity: 0.45 !important;
 }
-[class*="iconWrapper_"]:hover,
-[class*="iconContainer_"]:hover {
-  color: var(--fa-accent) !important;
+
+/* Guild list text */
+[class*="guilds_"] div,
+[class*="guilds_"] span {
+  color: var(--fa-text) !important;
 }
-[class*="clickable_"]:hover [class*="icon_"],
-[class*="clickable_"]:hover svg {
-  color: var(--fa-accent) !important;
+
+/* Members list text */
+[class*="membersWrap_"] div,
+[class*="membersWrap_"] span {
+  color: var(--fa-text) !important;
 }
 
 /* ==========================================
@@ -107,26 +102,13 @@ blockquote {
   background: rgba(0,212,232,0.04) !important;
   border-radius: 0 6px 6px 0 !important;
 }
-[class*="numberBadge_"] {
-  background: var(--fa-accent) !important;
-  box-shadow: 0 0 8px rgba(0,212,232,0.4) !important;
-}
+[class*="numberBadge_"] { background: var(--fa-accent) !important; }
 [class*="jumpToPresentBar_"] {
   background: linear-gradient(90deg, var(--fa-accent), var(--fa-accent2)) !important;
 }
-[class*="botTag_"] {
-  background: var(--fa-accent) !important;
-}
-[class*="sidebarList_"] [class*="category_"] {
-  color: var(--fa-accent) !important;
-  font-weight: 700 !important;
-}
-[class*="lookFilled_"] {
-  background: var(--fa-accent) !important;
-}
-[class*="checked_"] {
-  background: var(--fa-accent) !important;
-}
+[class*="botTag_"] { background: var(--fa-accent) !important; }
+[class*="lookFilled_"] { background: var(--fa-accent) !important; }
+[class*="checked_"] { background: var(--fa-accent) !important; }
 [class*="spinner_"] [class*="inner_"] {
   border-top-color: var(--fa-accent) !important;
   border-left-color: var(--fa-accent) !important;
@@ -175,9 +157,6 @@ code:not([class*="codeBlock_"] code) {
   color: var(--fa-accent) !important;
   border-radius: 4px !important;
 }
-[class*="mention_"]:hover {
-  background: rgba(0,212,232,0.2) !important;
-}
 
 /* ==========================================
    REACTIONS
@@ -186,10 +165,6 @@ code:not([class*="codeBlock_"] code) {
   background: var(--fa-surface) !important;
   border: 1px solid rgba(0,212,232,0.1) !important;
   border-radius: 8px !important;
-}
-[class*="reaction_"]:hover {
-  background: rgba(0,212,232,0.1) !important;
-  border-color: rgba(0,212,232,0.3) !important;
 }
 [class*="reactionMe_"] {
   background: rgba(0,212,232,0.15) !important;
@@ -201,11 +176,8 @@ code:not([class*="codeBlock_"] code) {
    ========================================== */
 ::selection { background: rgba(0,212,232,0.3) !important; }
 [class*="spoiler_"] { background: rgba(255,255,255,0.1) !important; }
-[class*="separator_"] { background: rgba(0,212,232,0.08) !important; }
 ::-webkit-scrollbar-thumb { background: var(--fa-accent) !important; }
-html {
-  scrollbar-color: var(--fa-accent) transparent !important;
-}
+html { scrollbar-color: var(--fa-accent) transparent !important; }
 
 /* ==========================================
    SIDEBAR: CHANNELS
@@ -222,10 +194,6 @@ html {
   border: 1px solid rgba(0,212,232,0.12) !important;
   border-radius: 8px !important;
   margin: 8px !important;
-}
-[class*="sidebarList_"] [class*="header_"] {
-  background: transparent !important;
-  box-shadow: 0 1px 0 rgba(0,212,232,0.1) !important;
 }
 
 /* ==========================================
@@ -245,23 +213,14 @@ html {
 /* ==========================================
    CHAT HEADER
    ========================================== */
-[class*="subtitleContainer_"] {
-  background: transparent !important;
-}
+[class*="subtitleContainer_"] { background: transparent !important; }
 [class*="subtitleContainer_"] [class*="themed_"] {
   background: transparent !important;
   border-bottom: 1px solid rgba(0,212,232,0.15) !important;
 }
-[class*="toolbar_"] [class*="iconWrapper_"] {
-  border-radius: 6px !important;
-}
-[class*="children_"] [class*="iconWrapper_"]:hover {
-  background: rgba(0,212,232,0.1) !important;
-  border-radius: 6px !important;
-}
 
 /* ==========================================
-   SIDEBAR TITLES ("Mensajes directos", etc.)
+   SIDEBAR TITLES
    ========================================== */
 [class*="privateChannels_"] [class*="title_"],
 [class*="peopleColumn_"] [class*="title_"] {
@@ -272,7 +231,7 @@ html {
 }
 
 /* ==========================================
-   FRIENDS / DM LIST
+   FRIENDS / DM
    ========================================== */
 [class*="privateChannels_"] [class*="interactive_"],
 [class*="peopleColumn_"] [class*="peopleListItem_"] {
@@ -292,20 +251,6 @@ html {
   background: var(--fa-surface) !important;
   border: 1px solid rgba(0,212,232,0.12) !important;
   border-radius: 10px !important;
-}
-[class*="nowPlayingColumn_"] [class*="itemCard_"]:hover {
-  background: rgba(0,212,232,0.06) !important;
-}
-
-/* ==========================================
-   SETTINGS / FRIEND BUTTON
-   ========================================== */
-[class*="sidebarRegion_"] [class*="item_"]:hover {
-  background: rgba(0,212,232,0.06) !important;
-}
-[class*="sidebarRegion_"] [class*="item_"][class*="selected_"] {
-  background: rgba(0,212,232,0.12) !important;
-  color: var(--fa-accent) !important;
 }
 [class*="peopleColumn_"] [class*="addFriend_"] {
   background: var(--fa-accent) !important;
