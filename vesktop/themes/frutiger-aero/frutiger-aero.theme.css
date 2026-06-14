@@ -6,122 +6,96 @@
 
 /* Custom variables — no specificity conflict with Discord */
 html {
-  --fa-bg: #0a1628;
-  --fa-sidebar: #0d1d38;
-  --fa-surface: #0f2240;
-  --fa-deep: #061220;
-  --fa-accent: #00d4e8;
-  --fa-accent2: #00e5a0;
+  --fa-bg: #0a1628 !important;
+  --fa-sidebar: #0d1d38 !important;
+  --fa-surface: #0f2240 !important;
+  --fa-deep: #061220 !important;
+  --fa-accent: #00d4e8 !important;
+  --fa-accent2: #00e5a0 !important;
 }
 
 /* Discord-native variables — must beat .theme-dark (0,1,0) */
 html.theme-dark {
-  --text-default: #c8e8f0;
-  --text-strong: #d8f0f8;
-  --text-muted: #5a8898;
-  --text-link: #00d4e8;
-  --text-brand: #00d4e8;
-
-  --channels-default: #80b8c8;
-
-  --interactive-icon-default: #5a8898;
-  --interactive-icon-hover: #a0d8e8;
-  --interactive-icon-active: #00d4e8;
-  --interactive-muted: #3a6070;
-
-  --background-base-low: #0a1628;
-  --background-base-lower: #0d1d38;
-  --background-base-lowest: #061220;
-  --background-mod-normal: rgba(0,212,232,0.06);
-  --background-mod-strong: rgba(0,212,232,0.12);
-  --background-mod-subtle: rgba(0,212,232,0.08);
-
-  --border-normal: rgba(0,212,232,0.12);
-  --border-strong: rgba(0,212,232,0.2);
-  --border-subtle: rgba(0,212,232,0.08);
-  --border-muted: rgba(0,212,232,0.06);
-  --border-focus: #00d4e8;
-
-  --brand-500: #00d4e8;
-  --primary-400: #00d4e8;
-
-  --input-background-default: #061220;
-  --input-border-default: rgba(0,212,232,0.15);
-
-  --card-background-default: #0f2240;
-  --card-secondary-bg: #0d1d38;
-  --message-background-hover: rgba(0,212,232,0.04);
-
-  --green-360: #00e5a0;
-  --green-430: #00d098;
-  --green-460: #00c090;
-
-  --white: #ffffff;
-  --white-500: rgba(255,255,255,0.5);
-
-  --elevation-high: 0 4px 20px rgba(0,0,0,0.3);
+  --text-default: #c8e8f0 !important;
+  --text-strong: #d8f0f8 !important;
+  --text-muted: #5a8898 !important;
+  --text-link: #00d4e8 !important;
+  --text-brand: #00d4e8 !important;
+  --channels-default: #80b8c8 !important;
+  --interactive-icon-default: #5a8898 !important;
+  --interactive-icon-hover: #a0d8e8 !important;
+  --interactive-icon-active: #00d4e8 !important;
+  --interactive-muted: #3a6070 !important;
+  --background-base-low: #0a1628 !important;
+  --background-base-lower: #0d1d38 !important;
+  --background-base-lowest: #061220 !important;
+  --background-mod-normal: rgba(0,212,232,0.06) !important;
+  --background-mod-strong: rgba(0,212,232,0.12) !important;
+  --background-mod-subtle: rgba(0,212,232,0.08) !important;
+  --border-normal: rgba(0,212,232,0.12) !important;
+  --border-strong: rgba(0,212,232,0.2) !important;
+  --border-subtle: rgba(0,212,232,0.08) !important;
+  --border-muted: rgba(0,212,232,0.06) !important;
+  --border-focus: #00d4e8 !important;
+  --brand-500: #00d4e8 !important;
+  --primary-400: #00d4e8 !important;
+  --input-background-default: #061220 !important;
+  --input-border-default: rgba(0,212,232,0.15) !important;
+  --card-background-default: #0f2240 !important;
+  --card-secondary-bg: #0d1d38 !important;
+  --message-background-hover: rgba(0,212,232,0.04) !important;
+  --green-360: #00e5a0 !important;
+  --green-430: #00d098 !important;
+  --green-460: #00c090 !important;
+  --white: #ffffff !important;
+  --white-500: rgba(255,255,255,0.5) !important;
+  --elevation-high: 0 4px 20px rgba(0,0,0,0.3) !important;
 }
 
 /* ==========================================
    LIGHT MODE
    ========================================== */
 html.theme-light {
-  --fa-bg: #e0f0f8;
-  --fa-sidebar: #cde6f4;
-  --fa-surface: #d4eaf5;
-  --fa-deep: #c0dcec;
-  --fa-accent: #0098c8;
-  --fa-accent2: #00b878;
-
-  --text-default: #1a3040;
-  --text-strong: #122838;
-  --text-muted: #6a8a9a;
-  --text-link: #0098c8;
-  --text-brand: #0098c8;
-  --text-feedback-critical: #d84040;
-
-  --channels-default: #3a6070;
-
-  --interactive-icon-default: #6a8a9a;
-  --interactive-icon-hover: #006080;
-  --interactive-icon-active: #0098c8;
-  --interactive-muted: #9ab0c0;
-
-  --background-base-low: #e0f0f8;
-  --background-base-lower: #cde6f4;
-  --background-base-lowest: #c0dcec;
-
-  --background-mod-normal: rgba(0,152,200,0.06);
-  --background-mod-strong: rgba(0,152,200,0.12);
-  --background-mod-subtle: rgba(0,152,200,0.08);
-
-  --border-normal: rgba(0,152,200,0.1);
-  --border-strong: rgba(0,152,200,0.18);
-  --border-subtle: rgba(0,152,200,0.06);
-  --border-muted: rgba(0,152,200,0.04);
-  --border-focus: #0098c8;
-
-  --brand-500: #0098c8;
-  --primary-400: #0098c8;
-
-  --input-background-default: #ffffff;
-  --input-border-default: rgba(0,152,200,0.12);
-
-  --card-background-default: #d4eaf5;
-  --card-secondary-bg: #cde6f4;
-
-  --message-background-hover: rgba(0,152,200,0.04);
-
-  --green-360: #00b878;
-  --green-430: #00a868;
-  --green-460: #009860;
-
-  --white: #ffffff;
-  --white-500: rgba(255,255,255,0.5);
-
-  --elevation-high: 0 4px 16px rgba(0,0,0,0.06);
-  --radius-sm: 8px;
-  --radius-xs: 4px;
+  --fa-bg: #e0f0f8 !important;
+  --fa-sidebar: #cde6f4 !important;
+  --fa-surface: #d4eaf5 !important;
+  --fa-deep: #c0dcec !important;
+  --fa-accent: #0098c8 !important;
+  --fa-accent2: #00b878 !important;
+  --text-default: #1a3040 !important;
+  --text-strong: #122838 !important;
+  --text-muted: #6a8a9a !important;
+  --text-link: #0098c8 !important;
+  --text-brand: #0098c8 !important;
+  --channels-default: #3a6070 !important;
+  --interactive-icon-default: #6a8a9a !important;
+  --interactive-icon-hover: #006080 !important;
+  --interactive-icon-active: #0098c8 !important;
+  --interactive-muted: #9ab0c0 !important;
+  --background-base-low: #e0f0f8 !important;
+  --background-base-lower: #cde6f4 !important;
+  --background-base-lowest: #c0dcec !important;
+  --background-mod-normal: rgba(0,152,200,0.06) !important;
+  --background-mod-strong: rgba(0,152,200,0.12) !important;
+  --background-mod-subtle: rgba(0,152,200,0.08) !important;
+  --border-normal: rgba(0,152,200,0.1) !important;
+  --border-strong: rgba(0,152,200,0.18) !important;
+  --border-subtle: rgba(0,152,200,0.06) !important;
+  --border-muted: rgba(0,152,200,0.04) !important;
+  --border-focus: #0098c8 !important;
+  --brand-500: #0098c8 !important;
+  --primary-400: #0098c8 !important;
+  --input-background-default: #ffffff !important;
+  --input-border-default: rgba(0,152,200,0.12) !important;
+  --card-background-default: #d4eaf5 !important;
+  --card-secondary-bg: #cde6f4 !important;
+  --message-background-hover: rgba(0,152,200,0.04) !important;
+  --green-360: #00b878 !important;
+  --green-430: #00a868 !important;
+  --green-460: #009860 !important;
+  --white: #ffffff !important;
+  --white-500: rgba(255,255,255,0.5) !important;
+  --elevation-high: 0 4px 16px rgba(0,0,0,0.06) !important;
 }
 
 /* ==========================================
