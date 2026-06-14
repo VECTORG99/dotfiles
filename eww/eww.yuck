@@ -269,81 +269,11 @@
        ;; Glass shine
        (box :class "glass-shine")))
 
-;; Music Player Widget
-
-(defwindow music
-  :monitor 0
-  :geometry (geometry :x "2%" :y "55%" :width 460 :height 220 :anchor "bottom left")
-  :windowtype "notification"
-  :stacking "overlay"
-  :focusable false
-  :decorations false
-  :wm-ignore true
-  (music-widget))
-
-(defpoll music_data :interval "2s"
-  :initial "{\"title\":\"---\",\"artist\":\"---\",\"status\":\"stopped\"}"
-  `bash ~/.config/eww/scripts/music.sh`)
-
-(defwidget music-widget []
-  (box :class "music-container"
-       :orientation "v"
-       :space-evenly false
-
-       ;; LCD Display
-       (box :class "music-display"
-            :orientation "h"
-            :space-evenly false
-
-            ;; EQ bars (CSS animated)
-            (box :class "music-eq"
-                 :orientation "h"
-                 :spacing 2
-                 (box :class "eq-bar eq-low" :style "animation-delay:0ms")
-                 (box :class "eq-bar eq-low" :style "animation-delay:120ms")
-                 (box :class "eq-bar eq-low" :style "animation-delay:240ms")
-                 (box :class "eq-bar eq-mid" :style "animation-delay:60ms")
-                 (box :class "eq-bar eq-mid" :style "animation-delay:180ms")
-                 (box :class "eq-bar eq-mid" :style "animation-delay:300ms")
-                 (box :class "eq-bar eq-mid" :style "animation-delay:90ms")
-                 (box :class "eq-bar eq-high" :style "animation-delay:30ms")
-                 (box :class "eq-bar eq-high" :style "animation-delay:150ms")
-                 (box :class "eq-bar eq-high" :style "animation-delay:270ms")
-                 (box :class "eq-bar eq-high" :style "animation-delay:210ms")
-                 (box :class "eq-bar eq-high" :style "animation-delay:330ms"))
-
-            ;; Track info
-            (box :class "music-track-info"
-                 :orientation "v"
-                 (label :text "${music_data.title}" :class "music-title")
-                 (label :text "${music_data.artist}" :class "music-artist")
-                 (label :text "${music_data.status}" :class "music-status")))
-
-       ;; Metallic separator
-       (box :class "music-sep")
-
-       ;; Controls row (all circular)
-       (box :class "music-controls"
-            :orientation "h"
-            :spacing 16
-            :halign "center"
-            (button :onclick "playerctl previous"
-                    (label :text "⏮" :class "music-btn-circle"))
-            (button :onclick "playerctl play-pause"
-                    (label :text "⏯" :class "music-btn-circle music-btn-play"))
-            (button :onclick "playerctl next"
-                    (label :text "⏭" :class "music-btn-circle"))
-            (box :class "vol-knob"
-                 (box :class "vol-dot")))
-
-       ;; Glass shine
-       (box :class "glass-shine")))
-
 ;; Widget Control Panel
 
 (defwindow widget-ctl
   :monitor 0
-  :geometry (geometry :x "2%" :y "1%" :width 340 :height 220 :anchor "bottom left")
+  :geometry (geometry :x "2%" :y "1%" :width 340 :height 180 :anchor "bottom left")
   :windowtype "notification"
   :stacking "overlay"
   :focusable false
@@ -363,9 +293,6 @@
   :initial "off"
   `bash ~/.config/eww/scripts/widget-status.sh calendar`)
 
-(defpoll music_status :interval "1s"
-  :initial "off"
-  `bash ~/.config/eww/scripts/widget-status.sh music`)
 
 (defwidget widget-ctl-widget []
   (box :class "ctl-container"
@@ -414,19 +341,6 @@
                  (label :text "${calendar_status}" :class "ctl-status"))
              (button :onclick "bash ~/.config/eww/scripts/widget-ctl.sh toggle calendar"
                      (label :text "TOGGLE" :class "ctl-btn")))
-
-       ;; Music
-       (box :class "ctl-row"
-            :orientation "h"
-            :space-evenly false
-            (box :class "ctl-info" :orientation "v"
-                 (label :text "Music" :class "ctl-label")
-                 (label :text "SUPER+SHIFT+R" :class "ctl-key"))
-            (box :hexpand true)
-            (box :class "ctl-status-box" :orientation "h"
-                 (label :text "${music_status}" :class "ctl-status"))
-            (button :onclick "bash ~/.config/eww/scripts/widget-ctl.sh toggle music"
-                    (label :text "TOGGLE" :class "ctl-btn")))
 
        ;; Glass shine
        (box :class "glass-shine")))
