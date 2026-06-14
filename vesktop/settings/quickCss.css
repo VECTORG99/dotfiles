@@ -41,47 +41,53 @@ html, #app-mount {
 }
 
 /* ==========================================
-   BRUTE FORCE TEXT — catch ALL elements in key containers
+   BRUTE FORCE TEXT — ALL containers
    ========================================== */
 
-/* Sidebar list: every text element gets theme color */
-[class*="sidebarList_"] div,
-[class*="sidebarList_"] span,
-[class*="sidebarList_"] a,
-[class*="sidebarList_"] h1,
-[class*="sidebarList_"] h2,
-[class*="sidebarList_"] h3,
-[class*="sidebarList_"] h4,
-[class*="sidebarList_"] p,
-[class*="sidebarList_"] label,
-[class*="sidebarList_"] svg {
+/* Every text-like element in every major container */
+[class*="sidebarList_"] div, [class*="sidebarList_"] span, [class*="sidebarList_"] a, [class*="sidebarList_"] p,
+[class*="sidebarList_"] h1, [class*="sidebarList_"] h2, [class*="sidebarList_"] h3, [class*="sidebarList_"] label,
+[class*="guilds_"] div, [class*="guilds_"] span, [class*="guilds_"] a,
+[class*="membersWrap_"] div, [class*="membersWrap_"] span, [class*="membersWrap_"] a,
+[class*="chat_"] div, [class*="chat_"] span, [class*="chat_"] a, [class*="chat_"] p, [class*="chat_"] h1, [class*="chat_"] h2,
+[class*="privateChannels_"] div, [class*="privateChannels_"] span, [class*="privateChannels_"] a,
+[class*="peopleColumn_"] div, [class*="peopleColumn_"] span, [class*="peopleColumn_"] a,
+[class*="nowPlayingColumn_"] div, [class*="nowPlayingColumn_"] span,
+[class*="panels_"] div, [class*="panels_"] span, [class*="panels_"] a,
+[class*="subtitleContainer_"] div, [class*="subtitleContainer_"] span, [class*="subtitleContainer_"] h1,
+[class*="modal_"] div, [class*="modal_"] span, [class*="modal_"] a, [class*="modal_"] p, [class*="modal_"] h1, [class*="modal_"] h2,
+[class*="menu_"] div, [class*="menu_"] span, [class*="menu_"] a,
+[class*="layerContainer_"] div, [class*="layerContainer_"] span, [class*="layerContainer_"] a,
+[class*="contentRegion_"] div, [class*="contentRegion_"] span {
   color: var(--fa-text) !important;
 }
 
-/* Keep category headers in accent */
-[class*="sidebarList_"] [class*="category_"] div,
-[class*="sidebarList_"] [class*="category_"] span {
-  color: var(--fa-accent) !important;
-}
-
-/* Dim muted channels */
-[class*="sidebarList_"] [class*="muted_"] div,
-[class*="sidebarList_"] [class*="muted_"] span {
+/* Exception: muted/dim channels */
+[class*="muted_"] div, [class*="muted_"] span {
   color: var(--fa-text-muted) !important;
   opacity: 0.45 !important;
 }
 
-/* Guild list text */
-[class*="guilds_"] div,
-[class*="guilds_"] span {
-  color: var(--fa-text) !important;
+/* Category headers stay accent */
+[class*="category_"] div, [class*="category_"] span {
+  color: var(--fa-accent) !important;
+  font-weight: 700 !important;
+  text-transform: uppercase !important;
 }
 
-/* Members list text */
-[class*="membersWrap_"] div,
-[class*="membersWrap_"] span {
-  color: var(--fa-text) !important;
+/* Timestamps and subtext stay muted */
+[class*="timestamp_"], [class*="edited_"], [class*="subtext_"] {
+  color: var(--fa-text-muted) !important;
 }
+
+/* Links stay accent */
+[class*="anchor_"] { color: var(--fa-accent) !important; }
+
+/* All icons */
+[class*="icon_"], [class*="iconWrapper_"] { color: var(--fa-text-muted) !important; }
+[class*="clickable_"]:hover [class*="icon_"],
+[class*="clickable_"]:hover svg,
+[class*="interactive_"]:hover svg { color: var(--fa-accent) !important; }
 
 /* ==========================================
    ACCENTS
