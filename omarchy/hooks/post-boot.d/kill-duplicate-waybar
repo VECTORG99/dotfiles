@@ -1,0 +1,15 @@
+#!/bin/bash
+# ponytail: Omarchy lanza waybar desde default/hypr/autostart.lua (read-only).
+# Si otro proceso lo lanza tambien, aparecen 2 barras. Este hook del post-boot
+# mata todas las instancias extra y deja solo una.
+# Upgrade path: si la duplicacion persiste, inspeccionar que lanza waybar ademas.
+
+sleep 3
+
+count=$(pgrep -cx waybar)
+if [ "$count" -gt 1 ]; then
+  # Matar todas y relanzar una sola
+  pkill -x waybar
+  sleep 1
+  nohup waybar >/dev/null 2>&1 &
+fi
