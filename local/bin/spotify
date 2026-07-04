@@ -1,0 +1,4 @@
+#!/bin/bash
+# Spicetify wrapper: applies customizations then launches Spotify
+spicetify backup apply 2>/dev/null || true
+exec /usr/bin/spotify "$@"
