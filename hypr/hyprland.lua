@@ -22,3 +22,10 @@ require("default.hypr.toggles")
 
 -- Add any other personal Hyprland configuration below.
 -- o.window("qemu", { workspace = "5" })
+
+-- Enable AT-SPI accessibility for computer-use-linux (semantic UI element selectors).
+-- GTK/Qt apps expose their widget tree so automation tools can click by button name
+-- instead of pixel coordinates. Safe: games (OpenGL/Vulkan/SDL) and Proton/Wine
+-- are NOT affected — only GTK/Qt desktop apps load these modules.
+-- Comment out if any app has issues: just remove/comment the line and reload Hyprland.
+hl.env("GTK_MODULES", "gail:atk-bridge")

@@ -1,0 +1,2 @@
+#!/usr/bin/env bash
+bash ~/.config/eww/scripts/eww-theme.sh auto &
