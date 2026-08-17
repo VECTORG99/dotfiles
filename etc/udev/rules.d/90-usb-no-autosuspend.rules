@@ -1,0 +1,4 @@
+# Prevenir desconexiones USB aleatorias: desactivar autosuspend en todos los dispositivos USB
+ACTION=="add", SUBSYSTEM=="usb", TEST=="power/control", ATTR{power/control}="on"
+# Mantener controladores xHCI despiertos y evitar D3cold (causa del error "xHC error in resume")
+ACTION=="add", SUBSYSTEM=="pci", ATTR{class}=="0x0c0330", ATTR{power/control}="on", ATTR{d3cold_allowed}="0"
